@@ -5,17 +5,49 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="style.css">
-   <title>DZ</title>
+   <title>TO DO LIST</title>
 </head>
 <body>
-   <label class = "label" for="input1">Title</label>
-   <input class="input" type="text" id="input1">
-   <label class = "label" for="input2">Description</label>
-   <input class="input" type="text" id="input2">
-   <button class="btn" id="btn">button</button>
-   <div class="info1" id="info"></div>
-</div>
-
+   <section class="wrapper-todo">
+   <h1 class="mainTitle">to do list</h1>
+      <div class="container">
+         <div class="form-todo">
+            <form id = "form" class="task">
+               <h2 class="title-todo">to do</h2>
+               <label class = "label" for="inputTitle">Title</label>
+               <input class="input" type="text" id="inputTitle">
+               <label class = "label" for="inputDescription">Description</label>
+               <input class="input" type="text" id="inputDescription">
+               <button class="btn" id="btn">Add card</button>
+            </form>
+         </div>
+         <div class="wrapper-progress">
+            <h2 class="title-todo">in progress</h2>
+            <div id="progress-wrapper">
+               <div class="progress" id="inProgress"></div>
+            </div>
+         </div>
+         <div class="wrapper-done">
+            <h2 class="title-todo">done</h2>
+            <div id="done-wrapper">
+               <div class="done" id="Done"></div>
+            </div>
+         </div>
+      </div>
+      <div class="todolist">
+         <div id="todo"></div>
+      </div>
+      <div class="wrapper">
+            <div class="modal-wrapper">
+               <div class="modal">
+                  <button class="roundButton" id="closeButton">X</button>
+                  <input id = 'input_modal_title' placeholder="Title" class="modal-input" type="text">
+                  <input id = 'input_modal_description' placeholder="Description" class="modal-input" type="text">
+                  <button id="model-submit" class="model__submit">Submit</button>
+               </div>
+            </div>
+      </div>
+</section>
 
 <script src="script.js"></script>
 </body>
