@@ -1,4 +1,4 @@
-const drawList = (dataType, area) => {
+const drawList = (dataType, area, dataType2, area2) => {
    area.innerHTML = '';
       dataType.forEach((item) => {
          area.innerHTML += `
@@ -15,10 +15,27 @@ const drawList = (dataType, area) => {
             <button class="deleteButton">delete</button>
             </div>
          </div>`
+      });
+      area2.innerHTML = '';
+      dataType2.forEach((item) => {
+         area2.innerHTML += `
+         <div class="card">
+            <span class = "span">Title:</span>
+            <span class = "title">${item.title}</span>
+            <br />
+            <span class = "span">Description:</span>
+            <span class="description">${item.description}</span>
+            <br />
+            <div class = "card__buttons">
+            <button class="editButton">edit</button>
+            <button class="nextButton">next</button>
+            <button class="deleteButton">delete</button>
+            </div>
+         </div>`
       })
 }
 
-const deleteBtn = (dataType, event) => {
+const deleteBtn = (dataType, area, dataType2, area2, event) => {
    const card = event.target.closest('.card');
    const titleDelete = card.querySelector('.title').textContent;
    const descriptionDelete = card.querySelector('.description').textContent;
@@ -27,9 +44,10 @@ const deleteBtn = (dataType, event) => {
          dataType.splice(index, 1)
       }
    })
+   drawList(dataType, area, dataType2, area2)
 }
 
-const editButton = (dataType, area, event) => {
+const editButton = (dataType, area, dataType2, area2, event) => {
    const modalWrapper = document.querySelector('.wrapper');
    modalWrapper.style.display = 'block';
    const closeButton = document.querySelector('#closeButton');
@@ -51,22 +69,26 @@ const editButton = (dataType, area, event) => {
             }
          })
       modalWrapper.style.display = 'none'
-      drawList(dataType, area)
+      drawList(dataType, area, dataType2, area2)
    })
 }
 
-const nextButton = (dataType, dataType2, area, event) => {
+const nextButton = (dataType, area, dataType2, area2, event) => {
    const cardNext = event.target.closest('.card');
    const titleNext = cardNext.querySelector('.title').textContent;
    const descriptionNext = cardNext.querySelector('.description').textContent;
+
       dataType.forEach((element, index) => {
       if(element.title === titleNext && element.description === descriptionNext) {
-      dataType2 = dataType2.concat(dataType);
+      dataType2.push({
+         title: titleNext,
+         description:descriptionNext,
+      })
       dataType.splice(index, 1);
       console.log(dataType2)
       }
-   drawList(dataType2, area);
    })
+   drawList(dataType, area, dataType2, area2)
 }
 
 
@@ -78,7 +100,7 @@ const init = () => {
    const form = document.querySelector('#form');
    const inputTitle = document.querySelector('#inputTitle');
    const inputDescription = document.querySelector('#inputDescription');
-   const btn = document.querySelector('#btn');
+   const btnAdd = document.querySelector('#btn');
 
    const data = {
       todo: [],
@@ -86,49 +108,42 @@ const init = () => {
       done: [],
    };
 
-   btn.addEventListener('click', (event) => {
+   btnAdd.addEventListener('click', (event) => {
       event.preventDefault();
    
       data.todo.push({
          title: inputTitle.value,
          description: inputDescription.value,
          })
-         
       form.reset();
 
-      drawList(data.todo, todoSection);
+      drawList(data.todo, todoSection, data.inProgress, inProgressList);
       }); 
 
       todolist.addEventListener('click', (event) => {
          switch(event.target.classList.value) {
             case 'deleteButton':
-               deleteBtn(data.todo, event)
-               drawList(data.todo, todoSection)
+               deleteBtn(data.todo, todoSection, data.inProgress, inProgressList, event)
                break;
 
             case 'editButton':
-               editButton(data.todo, todoSection, event)
+               editButton(data.todo, todoSection, data.inProgress, inProgressList, event)
                break;
             case 'nextButton':
-               nextButton(data.todo, data.inProgress, inProgressList, event);
-               drawList(data.todo, todoSection)
+               nextButton(data.todo, todoSection, data.inProgress, inProgressList, event);
             break;
             default:
                break;
          }
       })
       inProgressWrapper.addEventListener('click', (event) => {
-         data.inProgress.push({
-            title: inputTitle.value,
-            description: inputDescription.value,
-         })
          switch(event.target.classList.value) {
             case 'deleteButton':
-               deleteBtn(data.inProgress, event);
-               drawList(data.inProgress, inProgressList)
+               deleteBtn(data.inProgress, inProgressList, data.todo, todoSection, event);
+               console.log(data.inProgress)
                break;
             case 'editButton':
-               editButton(data.inProgress, inProgressList, event)
+               editButton(data.inProgress, inProgressList, data.todo, todoSection, event)
                break;
             default:
             break;
