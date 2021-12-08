@@ -15,8 +15,6 @@ input {
    padding: 30px 0;
    background: rgb(255,255,255);
    background: linear-gradient(0deg, rgba(255,255,255,1) 43%, rgba(217,198,185,1) 66%, rgba(172,133,115,1) 100%, rgba(255,255,255,1) 100%);
-   background-repeat: no-repeat;
-   background-attachment: fixed;
 }
 
 
@@ -46,11 +44,11 @@ input {
    width: 100%;
    max-width: 400px;
 }
+
 .task {
    width: 100%;
    padding: 20px 0 0 0;
-   border: 1px solid #381E1D;
-   border-radius: 10px;
+   max-width: 350px;
 }
 
 .label{
@@ -62,7 +60,7 @@ input {
 
 .input{
    width: 100%;
-   max-width: 300px;
+   max-width: 200px;
    font-size: 20px;
    color: #624645;
    margin: 0 auto;
@@ -76,6 +74,7 @@ input {
 
 .btn{
    width: 100%;
+   max-width: 350px;
    background-color: #624645;
    border: 1px solid #624645 ;
    border-radius: 0 0 10px 10px;
@@ -93,20 +92,41 @@ input {
 
 .wrapper-progress{
    padding: 20px;
-   border: 1px solid #381E1D;
-   border-radius: 10px;
    width: 100%;
-   max-width: 400px;
+   max-width: 300px;
 }
 
 .wrapper-done{
    padding: 20px;
-   border: 1px solid #381E1D;
-   border-radius: 10px;
    width: 100%;
-   max-width: 400px;
+   max-width: 300px;
 }
 
+
+.wrapper-deleted{
+   max-width: 300px;
+   width: 100%;
+   padding: 20px;
+}
+
+.clearBtn{
+   border: none;
+   background-color: #442524;
+   color: #e2d7ca;
+   transition: all .3s linear;
+   cursor: pointer;
+   padding: 10px;
+   text-transform: uppercase;
+   font-size: 15px;
+   border-radius: 10px;
+   display: block;
+   margin: 0 auto;
+
+}
+
+.clearBtn:hover{
+   background-color: #643937;
+}
 
 
 
@@ -120,7 +140,7 @@ input {
    border: 1px solid #A17864;
    border-radius: 10px;
    width: 100%;
-   max-width: 350px;
+   max-width: 250px;
    display: block;
    margin-bottom: 10px;
 }

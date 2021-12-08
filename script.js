@@ -1,8 +1,8 @@
-const drawList = (dataType, area, dataType2, area2) => {
+const drawList = (dataType, area, dataType2, area2, dataTypeDone, areaDone, dataTypeDeleted, areaDeleted) => {
    area.innerHTML = '';
       dataType.forEach((item) => {
          area.innerHTML += `
-         <div class="card">
+         <div class="card" id = '${item.id}'>
             <span class = "span">Title:</span>
             <span class = "title">${item.title}</span>
             <br />
@@ -19,7 +19,7 @@ const drawList = (dataType, area, dataType2, area2) => {
       area2.innerHTML = '';
       dataType2.forEach((item) => {
          area2.innerHTML += `
-         <div class="card">
+         <div class="card" id = '${item.id}'>
             <span class = "span">Title:</span>
             <span class = "title">${item.title}</span>
             <br />
@@ -33,21 +33,60 @@ const drawList = (dataType, area, dataType2, area2) => {
             </div>
          </div>`
       })
+   areaDone.innerHTML = '';
+   dataTypeDone.forEach((item) => {
+      areaDone.innerHTML += `
+      <div class="card" id = '${item.id}'>
+         <span class = "span">Title:</span>
+         <span class = "title">${item.title}</span>
+         <br />
+         <span class = "span">Description:</span>
+         <span class="description">${item.description}</span>
+         <br />
+         <div class = "card__buttons">
+         <button class="editButton">edit</button>
+         <button class="nextButton">next</button>
+         <button class="deleteButton">delete</button>
+         </div>
+      </div>`
+   })
+
+   areaDeleted.innerHTML = '';
+   dataTypeDeleted.forEach((item) => {
+      areaDeleted.innerHTML += `
+      <div class="card" id = '${item.id}'>
+         <span class = "span">Title:</span>
+         <span class = "title">${item.title}</span>
+         <br />
+         <span class = "span">Description:</span>
+         <span class="description">${item.description}</span>
+         <br />
+         <div class = "card__buttons">
+         <button class="editButton">edit</button>
+         <button class="nextButton">next</button>
+         <button class="deleteButton">delete</button>
+         </div>
+      </div>`
+   })
 }
 
-const deleteBtn = (dataType, area, dataType2, area2, event) => {
+const deleteBtn = (dataType, area, dataType2, area2, dataType3, area3, dataTypeDeleted, areaDeletedDelete, event) => {
    const card = event.target.closest('.card');
-   const titleDelete = card.querySelector('.title').textContent;
-   const descriptionDelete = card.querySelector('.description').textContent;
+   const newCard = card.id;
    dataType.forEach((element, index) => {
-      if(element.title === titleDelete && element.description === descriptionDelete){
+      if(element.id === newCard){
+         dataTypeDeleted.push({
+            title: titleDelete,
+            description: descriptionDelete,
+            id: Date.now(),
+         })
          dataType.splice(index, 1)
       }
    })
-   drawList(dataType, area, dataType2, area2)
+   drawList(dataType, area, dataType2, area2, dataType3, area3, dataTypeDeleted, areaDeletedDelete)
 }
 
-const editButton = (dataType, area, dataType2, area2, event) => {
+const editButton = (dataType, area, dataType2, area2, dataType3, area3, event) => {
    const modalWrapper = document.querySelector('.wrapper');
    modalWrapper.style.display = 'block';
    const closeButton = document.querySelector('#closeButton');
@@ -69,11 +108,11 @@ const editButton = (dataType, area, dataType2, area2, event) => {
             }
          })
       modalWrapper.style.display = 'none'
-      drawList(dataType, area, dataType2, area2)
+      drawList(dataType, area, dataType2, area2, dataType3, area3,)
    })
 }
 
-const nextButton = (dataType, area, dataType2, area2, event) => {
+const nextButton = (dataType, area, dataType2, area2, dataType3, area3, dataType4, area4, event) => {
    const cardNext = event.target.closest('.card');
    const titleNext = cardNext.querySelector('.title').textContent;
    const descriptionNext = cardNext.querySelector('.description').textContent;
@@ -82,13 +121,12 @@ const nextButton = (dataType, area, dataType2, area2, event) => {
       if(element.title === titleNext && element.description === descriptionNext) {
       dataType2.push({
          title: titleNext,
-         description:descriptionNext,
+         description: descriptionNext,
       })
       dataType.splice(index, 1);
-      console.log(dataType2)
       }
    })
-   drawList(dataType, area, dataType2, area2)
+   drawList(dataType, area, dataType2, area2, dataType3, area3, dataType4, area4)
 }
 
 
@@ -101,11 +139,17 @@ const init = () => {
    const inputTitle = document.querySelector('#inputTitle');
    const inputDescription = document.querySelector('#inputDescription');
    const btnAdd = document.querySelector('#btn');
+   const doneSection = document.querySelector('#Done');
+   const doneWrapper = document.querySelector('#done-wrapper');
+   const deleteWrapper = document.querySelector('#deleted-wrapper')
+   const deleteSection = document.querySelector('#Deleted');
+   const clearBtn = document.querySelector('#btnDelete');
 
    const data = {
       todo: [],
       inProgress: [],
       done: [],
+      deleted: [],
    };
 
    btnAdd.addEventListener('click', (event) => {
@@ -114,23 +158,24 @@ const init = () => {
       data.todo.push({
          title: inputTitle.value,
          description: inputDescription.value,
+         id: Date.now(),
          })
       form.reset();
 
-      drawList(data.todo, todoSection, data.inProgress, inProgressList);
+      drawList(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, data.deleted, deleteSection,);
       }); 
 
       todolist.addEventListener('click', (event) => {
          switch(event.target.classList.value) {
             case 'deleteButton':
-               deleteBtn(data.todo, todoSection, data.inProgress, inProgressList, event)
+               deleteBtn(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, data.deleted, deleteSection, event)
                break;
 
             case 'editButton':
-               editButton(data.todo, todoSection, data.inProgress, inProgressList, event)
+               editButton(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, event)
                break;
             case 'nextButton':
-               nextButton(data.todo, todoSection, data.inProgress, inProgressList, event);
+               nextButton(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, data.deleted, deleteSection, event);
             break;
             default:
                break;
@@ -139,16 +184,57 @@ const init = () => {
       inProgressWrapper.addEventListener('click', (event) => {
          switch(event.target.classList.value) {
             case 'deleteButton':
-               deleteBtn(data.inProgress, inProgressList, data.todo, todoSection, event);
-               console.log(data.inProgress)
+               deleteBtn( data.inProgress, inProgressList, data.done, doneSection, data.todo, todoSection, data.deleted, deleteSection,  event);
                break;
             case 'editButton':
-               editButton(data.inProgress, inProgressList, data.todo, todoSection, event)
+               editButton(data.inProgress, inProgressList, data.done, doneSection, data.todo, todoSection, event)
+               break;
+            case 'nextButton':
+               nextButton(data.inProgress, inProgressList, data.done, doneSection, data.todo, todoSection, data.deleted, deleteSection,  event)
                break;
             default:
             break;
          }
       })
+
+      doneWrapper.addEventListener('click', (event) => {
+         switch(event.target.classList.value) {
+            case 'deleteButton':
+               deleteBtn( data.done, doneSection, data.inProgress, inProgressList, data.todo, todoSection, data.deleted, deleteSection,  event);
+               console.log(data.inProgress)
+               break;
+            case 'editButton':
+               editButton(data.done, doneSection, data.inProgress, inProgressList, data.todo, todoSection, event)
+               break;
+            case 'nextButton':
+               nextButton(data.done, doneSection, data.deleted, deleteSection, data.inProgress, inProgressList, data.todo, todoSection,  event)
+               break;
+            default:
+            break;
+         }
+      })
+      deleteWrapper.addEventListener('click', (event) => {
+         switch(event.target.classList.value) {
+            case 'deleteButton':
+               const card = event.target.closest('.card');
+               const titleDelete = card.querySelector('.title').textContent;
+               const descriptionDelete = card.querySelector('.description').textContent;
+               data.deleted.forEach((element, index) => {
+                  if(element.title === titleDelete && element.description === descriptionDelete){
+                     data.deleted.splice(index, 1)
+         }
+         drawList(data.deleted, deleteSection);
+      })
+            break;
+            default:
+            break;
+         }
+      })
+      clearBtn.addEventListener('click', () => {
+         data.deleted = []
+         drawList(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, data.deleted, deleteSection,)
+      })
+
 }
    init()
 
