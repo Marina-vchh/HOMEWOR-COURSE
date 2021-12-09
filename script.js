@@ -1,4 +1,4 @@
-const drawList = (dataType, area, dataType2, area2, dataTypeDone, areaDone, dataTypeDeleted, areaDeleted) => {
+const drawList = (dataType, area) => {
    area.innerHTML = '';
       dataType.forEach((item) => {
          area.innerHTML += `
@@ -9,72 +9,66 @@ const drawList = (dataType, area, dataType2, area2, dataTypeDone, areaDone, data
             <span class = "span">Description:</span>
             <span class="description">${item.description}</span>
             <br />
-            <div class = "card__buttons">
-            <button class="editButton">edit</button>
-            <button class="nextButton">next</button>
-            <button class="deleteButton">delete</button>
-            </div>
-         </div>`
+            ${ area.id === 'todoId' ||  area.id === 'inProgressId' || area.id === 'doneId' ?
+            `<div class = "card__buttons">
+            <button class="editButton"></button>
+            <button class="deleteButton"></button>
+            <button class="nextButton"></button>`
+            :`<button class="deleteFinal"></button>
+            </div>`
+            }
+            </div>`
       });
-      area2.innerHTML = '';
-      dataType2.forEach((item) => {
-         area2.innerHTML += `
-         <div class="card" id = '${item.id}'>
-            <span class = "span">Title:</span>
-            <span class = "title">${item.title}</span>
-            <br />
-            <span class = "span">Description:</span>
-            <span class="description">${item.description}</span>
-            <br />
-            <div class = "card__buttons">
-            <button class="editButton">edit</button>
-            <button class="nextButton">next</button>
-            <button class="deleteButton">delete</button>
-            </div>
-         </div>`
-      })
-   areaDone.innerHTML = '';
-   dataTypeDone.forEach((item) => {
-      areaDone.innerHTML += `
-      <div class="card" id = '${item.id}'>
-         <span class = "span">Title:</span>
-         <span class = "title">${item.title}</span>
-         <br />
-         <span class = "span">Description:</span>
-         <span class="description">${item.description}</span>
-         <br />
-         <div class = "card__buttons">
-         <button class="editButton">edit</button>
-         <button class="nextButton">next</button>
-         <button class="deleteButton">delete</button>
-         </div>
-      </div>`
-   })
+}
 
-   areaDeleted.innerHTML = '';
-   dataTypeDeleted.forEach((item) => {
-      areaDeleted.innerHTML += `
-      <div class="card" id = '${item.id}'>
-         <span class = "span">Title:</span>
-         <span class = "title">${item.title}</span>
-         <br />
-         <span class = "span">Description:</span>
-         <span class="description">${item.description}</span>
-         <br />
-         <div class = "card__buttons">
-         <button class="editButton">edit</button>
-         <button class="nextButton">next</button>
-         <button class="deleteButton">delete</button>
-         </div>
-      </div>`
+const addCard = (dataType, area, event) => {
+   event.preventDefault();
+   const inputTitle = document.querySelector('#inputTitle');
+   const inputDescription = document.querySelector('#inputDescription');
+   const form = document.querySelector('#form');
+      dataType.push({
+         title: inputTitle.value,
+         description: inputDescription.value,
+         id: Date.now(),
+         })
+      form.reset();
+   drawList(dataType, area);
+}
+
+const editButton = (dataType, area, event) => {
+   const cardEdit = event.target.closest('.card');
+   const titleEdit = cardEdit.querySelector('.title').textContent;
+   const descriptionEdit = cardEdit.querySelector('.description').textContent;
+   
+   const modalWrapper = document.querySelector('.wrapper-modal');
+   modalWrapper.style.display = 'block';
+   const closeButton = document.querySelector('#closeButton');
+   closeButton.addEventListener('click', () => (modalWrapper.
+   style.display = 'none'));
+   const input_modal_title = document.querySelector('#input_modal_title');
+   const input_modal_description = document.querySelector('#input_modal_description');
+   input_modal_title.value = titleEdit;
+   input_modal_description.value = descriptionEdit;
+   const modelSubmit = document.querySelector('#modal__submitId');
+
+   modelSubmit.addEventListener('click', () => {
+      dataType.forEach((element, index) => {
+         if(element.title === titleEdit && element.description === descriptionEdit){
+            dataType.splice(index, 1, {title: input_modal_title.value, description: input_modal_description.value, id: Date.now() })
+            }
+         })
+      modalWrapper.style.display = 'none'
+      drawList(dataType, area)
    })
 }
 
-const deleteBtn = (dataType, area, dataType2, area2, dataType3, area3, dataTypeDeleted, areaDeletedDelete, event) => {
+const deleteBtn = (dataType, area, dataTypeDeleted, areaDeleted, event) => {
    const card = event.target.closest('.card');
+   const titleDelete = card.querySelector('.title').textContent;
+   const descriptionDelete = card.querySelector('.description').textContent;
    const newCard = card.id;
    dataType.forEach((element, index) => {
-      if(element.id === newCard){
+      if(element.title === titleDelete && element.description === descriptionDelete && element.id == newCard){
          dataTypeDeleted.push({
             title: titleDelete,
             description: descriptionDelete,
@@ -83,67 +77,38 @@ const deleteBtn = (dataType, area, dataType2, area2, dataType3, area3, dataTypeD
          dataType.splice(index, 1)
       }
    })
-   drawList(dataType, area, dataType2, area2, dataType3, area3, dataTypeDeleted, areaDeletedDelete)
+   drawList(dataType, area)
+   drawList(dataTypeDeleted, areaDeleted)
 }
 
-const editButton = (dataType, area, dataType2, area2, dataType3, area3, event) => {
-   const modalWrapper = document.querySelector('.wrapper');
-   modalWrapper.style.display = 'block';
-   const closeButton = document.querySelector('#closeButton');
-   closeButton.addEventListener('click', () => (modalWrapper.
-   style.display = 'none'));
-   const cardEdit = event.target.closest('.card');
-   const titleEdit = cardEdit.querySelector('.title').textContent;
-   const descriptionEdit = cardEdit.querySelector('.description').textContent;
-   const input_modal_title = document.querySelector('#input_modal_title');
-   const input_modal_description = document.querySelector('#input_modal_description');
-   input_modal_title.value = titleEdit;
-   input_modal_description.value = descriptionEdit;
-   const modelSubmit = document.querySelector('#model-submit');
-
-   modelSubmit.addEventListener('click', () => {
-      dataType.forEach((element, index) => {
-         if(element.title === titleEdit && element.description === descriptionEdit){
-            dataType.splice(index, 1, {title: input_modal_title.value, description: input_modal_description.value})
-            }
-         })
-      modalWrapper.style.display = 'none'
-      drawList(dataType, area, dataType2, area2, dataType3, area3,)
-   })
-}
-
-const nextButton = (dataType, area, dataType2, area2, dataType3, area3, dataType4, area4, event) => {
+const nextButton = (dataType, area, dataType2, area2, event) => {
    const cardNext = event.target.closest('.card');
    const titleNext = cardNext.querySelector('.title').textContent;
    const descriptionNext = cardNext.querySelector('.description').textContent;
-
+   const newCardNext = cardNext.id;
       dataType.forEach((element, index) => {
-      if(element.title === titleNext && element.description === descriptionNext) {
+      if(element.title === titleNext && element.description === descriptionNext && element.id == newCardNext) {
       dataType2.push({
          title: titleNext,
          description: descriptionNext,
+         id: Date.now(),
       })
       dataType.splice(index, 1);
       }
    })
-   drawList(dataType, area, dataType2, area2, dataType3, area3, dataType4, area4)
+   drawList(dataType, area);
+   drawList(dataType2, area2)
 }
 
 
 const init = () => {
    const todolist = document.querySelector('.todolist');
-   const todoSection = document.querySelector('#todo');
-   const inProgressList = document.querySelector('#inProgress');
-   const inProgressWrapper = document.querySelector('#progress-wrapper');
-   const form = document.querySelector('#form');
-   const inputTitle = document.querySelector('#inputTitle');
-   const inputDescription = document.querySelector('#inputDescription');
-   const btnAdd = document.querySelector('#btn');
-   const doneSection = document.querySelector('#Done');
-   const doneWrapper = document.querySelector('#done-wrapper');
-   const deleteWrapper = document.querySelector('#deleted-wrapper')
-   const deleteSection = document.querySelector('#Deleted');
-   const clearBtn = document.querySelector('#btnDelete');
+   const todoSection = document.querySelector('#todoId');
+   const inProgressSection = document.querySelector('#inProgressId');
+   const doneSection = document.querySelector('#doneId');
+   const deleteSection = document.querySelector('#deletedId');
+   const btnAdd = document.querySelector('#btnAdd');
+   const clearAllButton = document.querySelector('#btnClearAll');
 
    const data = {
       todo: [],
@@ -153,69 +118,61 @@ const init = () => {
    };
 
    btnAdd.addEventListener('click', (event) => {
-      event.preventDefault();
-   
-      data.todo.push({
-         title: inputTitle.value,
-         description: inputDescription.value,
-         id: Date.now(),
-         })
-      form.reset();
-
-      drawList(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, data.deleted, deleteSection,);
+      addCard(data.todo, todoSection, event)
       }); 
 
-      todolist.addEventListener('click', (event) => {
-         switch(event.target.classList.value) {
+   todolist.addEventListener('click', (event) => {
+      switch(event.target.classList.value) {
             case 'deleteButton':
-               deleteBtn(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, data.deleted, deleteSection, event)
+               deleteBtn(data.todo, todoSection, data.deleted, deleteSection, event)
                break;
 
             case 'editButton':
-               editButton(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, event)
+               editButton(data.todo, todoSection, event)
                break;
             case 'nextButton':
-               nextButton(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, data.deleted, deleteSection, event);
+               nextButton(data.todo, todoSection, data.inProgress, inProgressSection, event);
             break;
             default:
                break;
          }
       })
-      inProgressWrapper.addEventListener('click', (event) => {
-         switch(event.target.classList.value) {
+   inProgressSection.addEventListener('click', (event) => {
+      switch(event.target.classList.value) {
             case 'deleteButton':
-               deleteBtn( data.inProgress, inProgressList, data.done, doneSection, data.todo, todoSection, data.deleted, deleteSection,  event);
+               deleteBtn( data.inProgress, inProgressSection, data.deleted, deleteSection,  event);
                break;
             case 'editButton':
-               editButton(data.inProgress, inProgressList, data.done, doneSection, data.todo, todoSection, event)
+               editButton(data.inProgress, inProgressSection, event)
                break;
             case 'nextButton':
-               nextButton(data.inProgress, inProgressList, data.done, doneSection, data.todo, todoSection, data.deleted, deleteSection,  event)
+               nextButton(data.inProgress, inProgressSection, data.done, doneSection, event)
                break;
             default:
             break;
          }
       })
 
-      doneWrapper.addEventListener('click', (event) => {
-         switch(event.target.classList.value) {
+   doneSection.addEventListener('click', (event) => {
+      switch(event.target.classList.value) {
             case 'deleteButton':
-               deleteBtn( data.done, doneSection, data.inProgress, inProgressList, data.todo, todoSection, data.deleted, deleteSection,  event);
+               deleteBtn( data.done, doneSection, data.deleted, deleteSection,  event);
                console.log(data.inProgress)
                break;
             case 'editButton':
-               editButton(data.done, doneSection, data.inProgress, inProgressList, data.todo, todoSection, event)
+               editButton(data.done, doneSection, event)
                break;
             case 'nextButton':
-               nextButton(data.done, doneSection, data.deleted, deleteSection, data.inProgress, inProgressList, data.todo, todoSection,  event)
+               nextButton(data.done, doneSection, data.deleted, deleteSection, event)
                break;
             default:
             break;
          }
       })
-      deleteWrapper.addEventListener('click', (event) => {
+
+   deleteSection.addEventListener('click', (event) => {
          switch(event.target.classList.value) {
-            case 'deleteButton':
+            case 'deleteFinal':
                const card = event.target.closest('.card');
                const titleDelete = card.querySelector('.title').textContent;
                const descriptionDelete = card.querySelector('.description').textContent;
@@ -230,13 +187,13 @@ const init = () => {
             break;
          }
       })
-      clearBtn.addEventListener('click', () => {
-         data.deleted = []
-         drawList(data.todo, todoSection, data.inProgress, inProgressList, data.done, doneSection, data.deleted, deleteSection,)
-      })
+   clearAllButton.addEventListener('click', () => {
+      data.deleted = []
+      drawList(data.deleted, deleteSection,)
+   })
 
 }
-   init()
+init();
 
 
 

@@ -1,7 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Comforter&family=M+PLUS+1:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap');
+
 * {
    margin: 0px;
    padding: 0px;
    box-sizing: border-box;
+   font-family: 'Open Sans Condensed', sans-serif;;
+}
+
+body{
+   background: rgb(255,255,255);
+   background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(178,181,189,1) 28%, rgba(106,112,128,1) 60%, rgba(42,50,73,1) 100%);
+   background-repeat: no-repeat;
+   background-attachment: fixed;
 }
 
 input {
@@ -12,72 +22,81 @@ input {
 .wrapper-todo {
    width: 100%;
    height: 100%;
-   padding: 30px 0;
-   background: rgb(255,255,255);
-   background: linear-gradient(0deg, rgba(255,255,255,1) 43%, rgba(217,198,185,1) 66%, rgba(172,133,115,1) 100%, rgba(255,255,255,1) 100%);
-}
-
-
-.container {
-   padding: 0 70px;
-   display: flex;
-   column-gap: 40px;
-   margin-bottom: 20px;
-}
-
-.title-todo {
-   text-align: center;
-   margin-bottom: 30px;
-   color: #381E1D;
-   text-transform: uppercase;
-   font-size: 18px;
+   padding: 30px 16px 0;
 }
 
 .mainTitle{
    text-align: center;
    font-size: 50px;
-   margin: 0px 0 60px 0;
+   margin: 0px 0 30px 0;
    text-transform: uppercase;
-   color: #3f2c23;
+   color: #ffffff;
 }
+
+.title-todolist{
+   text-align: center;
+   margin-bottom: 20px;
+   text-transform: uppercase;
+   font-size: 24px;
+   background-image: linear-gradient(to right, rgb(120, 127, 145), rgba(42,50,73,1));
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+
+.title{
+   text-transform: uppercase;
+   font-size: 18px;
+   color: #fff;
+}
+
+.description{
+   font-size: 18px;
+   color: #fff;
+}
+
 .form-todo{
    width: 100%;
-   max-width: 400px;
+   max-width: 800px;
+   margin: 0 auto;
+   margin-bottom: 30px;
 }
 
 .task {
    width: 100%;
    padding: 20px 0 0 0;
-   max-width: 350px;
+}
+
+.form-input{
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
 }
 
 .label{
    text-transform: uppercase;
-   color: #A17864;
-   margin-left: 50px;
-   font-size: 18px;
+   color: #ffffff;
+   font-size: 22px;
 }
 
 .input{
    width: 100%;
-   max-width: 200px;
+   max-width: 300px;
    font-size: 20px;
-   color: #624645;
-   margin: 0 auto;
+   color: #fff;
    border: none;
-   border-bottom: 1px solid #A17864;
+   border-bottom: 1px solid rgba(42,50,73,1);
    margin-bottom: 40px;
-   display: grid;
-   grid-template-columns: 1fr 1fr;
 }
 
 
 .btn{
    width: 100%;
-   max-width: 350px;
-   background-color: #624645;
-   border: 1px solid #624645 ;
-   border-radius: 0 0 10px 10px;
+   max-width: 300px;
+   display: block;
+   margin: 0 auto;
+   background-color: #a0a0a0;
+   border: 1px solid #a0a0a0 ;
+   border-radius: 10px;
    padding: 10px 0;
    transition: all .3s linear ;
    text-transform: uppercase;
@@ -87,142 +106,153 @@ input {
 }
 
 .btn:hover{
-   background-color: #381E1D;
+   background-color: rgb(62, 73, 104);
+   border: 1px solid rgb(62, 73, 104);
 }
 
-.wrapper-progress{
+.todolist{
+   display: flex;
+   padding: 30px;
+   width: 100%;
+}
+
+.wrapper{
    padding: 20px;
    width: 100%;
-   max-width: 300px;
+   max-width: 400px;
 }
 
-.wrapper-done{
-   padding: 20px;
-   width: 100%;
-   max-width: 300px;
-}
-
-
-.wrapper-deleted{
-   max-width: 300px;
-   width: 100%;
-   padding: 20px;
-}
-
-.clearBtn{
-   border: none;
-   background-color: #442524;
-   color: #e2d7ca;
+.btnClear{
+   display: block;
+   margin: 0 auto;
    transition: all .3s linear;
    cursor: pointer;
    padding: 10px;
    text-transform: uppercase;
    font-size: 15px;
+   border: none;
    border-radius: 10px;
-   display: block;
-   margin: 0 auto;
-
+   background-color: #68656E;
+   color: #ffffff;
 }
 
-.clearBtn:hover{
-   background-color: #643937;
+.btnClear:hover{
+   background-color: #525057;
 }
 
-
-
-.todolist{
-   padding: 0 70px;
-}
 
 
 .card {
    padding: 20px 0 0 0;
-   border: 1px solid #A17864;
+   border: 1px solid rgba(42,50,73,1);
    border-radius: 10px;
    width: 100%;
-   max-width: 250px;
+   max-width: 400px;
    display: block;
    margin-bottom: 10px;
+   background-color: rgba(126, 139, 175, 0.576);
 }
 
 .span {
    text-transform: uppercase;
-   color: #442524;
-   font-size: 14px;
+   color: #c5c5c5;
+   font-size: 18px;
+   font-weight: 700;
    padding: 0 0 0 20px;
 }
 
 
 .card__buttons{
    display: flex;
-   justify-content: space-between;
+   justify-content: flex-end;
    margin-top: 30px;
-}
-
-.nextButton{
-   width: 100%;
-   max-width: 120px;
-   background-color: #886a69;
-   border: 1px solid #8a6c6b;
-   border-radius: 0px 0 0 0;
-   padding: 10px 0;
-   transition: all .3s linear ;
-   text-transform: uppercase;
-   color: #fff;
-   font-size: 16px;
-   cursor: pointer;
-}
-
-.nextButton:hover{
-   background-color: #381E1D;
 }
 
 
 .editButton{
    padding: 10px;
-   background-color: #CAB9A7;
+   max-width: 40px;
    width: 100%;
-   max-width: 120px;
-   border: none;
+   height: 40px;
    transition: all .3s linear ;
-   text-transform: uppercase;
-   color: rgb(255, 255, 255);
-   font-size: 16px;
    cursor: pointer;
-   border-radius: 0 0 0 10px;
+   border-radius: 10px 0 0 0;
+   background-color: rgb(132, 151, 189);
+   border: none;
+   background-image: url(img/icons8-редактировать\ \(1\).svg);
+   background-repeat: no-repeat;
+   background-position: center;
 }
 .editButton:hover{
-   background-color: #dfccb7;
+   background-color: rgb(121, 138, 174);
 }
 
 
 .deleteButton {
    padding: 10px 0;
-   background-color: #aa9b8b;
+   max-width: 40px;
    width: 100%;
-   max-width: 120px;
-   border: none;
+   height: 40px;
    transition: all .3s linear ;
-   text-transform: uppercase;
-   color: rgb(255, 255, 255);
-   font-size: 16px;
    cursor: pointer;
-   border-radius: 0 0 10px 0;
+   border: none;
+   background-color: #69758c;
+   background-image: url(img/icons8-удалить\ \(2\).svg);
+   background-repeat: no-repeat;
+   background-position: center;
 }
 
 .deleteButton:hover{
-   background-color: rgb(116, 109, 99);
+   background-color: #596377;
+}
+
+.nextButton{
+   padding: 10px 0;
+   width: 100%;
+   max-width: 40px;
+   height: 40px;
+   transition: all .3s linear ;
+   cursor: pointer;
+   border: none;
+   border-radius: 0 0 10px 0;
+   background-color: #7e8ca7;
+   background-image: url(img/211607_right_arrow_icon.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+}
+
+.nextButton:hover{
+   background-color: #657188;
+}
+
+.deleteFinal{
+   display: block;
+   margin-left: auto;
+   width: 100%;
+   max-width: 40px;
+   height: 40px;
+   border-radius: 10px 0 10px 0;
+   padding: 10px 0;
+   transition: all .3s linear ;
+   cursor: pointer;
+   background-color: #6c598c70;
+   background-image: url(img/icons8-deletefinal.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   border: none;
+}
+
+.deleteFinal:hover{
+   background-color: #6c598cb6;
 }
 
 
 
-
-
-.wrapper{
+.wrapper-modal{
    display: none;
 }
 
-.modal-wrapper{
+.container-modal{
    position: fixed;
    top: 0;
    left: 0;
@@ -230,7 +260,7 @@ input {
    right: 0;
    width: 100%;
    height: 100vh;
-   background-color: #62464541;
+   background-color: rgba(42,50,73,.5);
    display: flex;
    justify-content: center;
    align-items: center;
@@ -241,22 +271,22 @@ input {
    width: 400px;
    height: 400px;
    padding: 40px;
-   border: 2px solid #442524;
+   border: 2px solid rgba(40, 47, 68, 1);
    border-radius: 10px;
    position: relative;
-   background-color: #4425246e;
+   background-color: rgba(79, 93, 135, 0.6);
 }
 
 .roundButton{
-   background: none;
-   border: none;
    position: absolute;
    top: 1rem;
    right: 1rem;
-   font-size: 20px;
-   color: #CAB9A7;
+   font-size: 22px;
+   color: #ffffff;
    cursor: pointer;
    transition: all .4s linear;
+   background: none;
+   border: none;
 }
 
 .roundButton:hover{
@@ -265,36 +295,36 @@ input {
 
 .modal-input{
    border: none;
-   border-bottom: 2px solid #523d33;
+   border-bottom: 2px solid rgba(40, 47, 68, 1);
    width: 320px;
-   font-size: 20px;
+   font-size: 24px;
    margin-bottom: 10px;
-   color: #dfccb7;
+   color: #fff;
 }
 
-.model__submit{
+.modal__submit{
    display: block;
-   width: 225px;
+   width: 150px;
    padding: 15px;
-   border: none;
-   border-radius: 10px;
-   color:#523d33;
-   background-color: #aa9b8b;
    font-size: 18px;
    text-transform: uppercase;
    cursor: pointer;
    margin: 40px auto;
    transition: all .4s linear;
+   border: none;
+   border-radius: 10px;
+   color:#ffffff;
+   background-color: rgb(94, 98, 107);
 }
 
-.model__submit:hover{
-   background-color: #b6a595;
+.modal__submit:hover{
+   background-color: rgb(124, 129, 141);
 }
 
 .modal-label{
    font-size: 20px;
    text-transform: uppercase;
-   color: #b6a595;
+   color: #ffffff;
 }
 
 

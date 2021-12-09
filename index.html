@@ -10,47 +10,44 @@
 <body>
    <section class="wrapper-todo">
    <h1 class="mainTitle">to do list</h1>
-      <div class="container">
          <div class="form-todo">
             <form id = "form" class="task">
-               <h2 class="title-todo">to do</h2>
-               <label class = "label" for="inputTitle">Title</label>
-               <input class="input" type="text" id="inputTitle">
-               <label class = "label" for="inputDescription">Description</label>
-               <input class="input" type="text" id="inputDescription">
-               <button class="btn" id="btn">Add card</button>
+               <div class="form-input">
+                  <label class = "label" for="inputTitle">Title</label>
+                  <input class="input" type="text" id="inputTitle">
+                  <label class = "label" for="inputDescription">Description</label>
+                  <input class="input" type="text" id="inputDescription">
+               </div>
+               <button class="btn" id="btnAdd">Add card</button>
             </form>
          </div>
-         <div class="wrapper-progress">
-            <h2 class="title-todo">in progress</h2>
-            <div id="progress-wrapper">
-               <div class="progress" id="inProgress"></div>
+         <div class="todolist">
+            <div class="wrapper wrapper-todo">
+               <h2 class="title-todolist">to do</h2>
+               <div id="todoId"></div>
             </div>
-         </div>
-         <div class="wrapper-done">
-            <h2 class="title-todo">done</h2>
-            <div id="done-wrapper">
-               <div class="done" id="Done"></div>
+            <div class="wrapper wrapper-in-progress">
+               <h2 class="title-todolist">in progress</h2>
+               <div class="progress" id="inProgressId"></div>
             </div>
-         </div>
-         <div class="wrapper-deleted">
-            <h2 class="title-todo">deleted</h2>
-            <div id="deleted-wrapper">
-               <div class="deleted" id="Deleted"></div>
-               <button class="clearBtn" id="btnDelete">clear all</button>
+            <div class="wrapper wrapper-done">
+               <h2 class="title-todolist">done</h2>
+               <div class="done" id="doneId"></div>
+            </div>
+            <div class="wrapper wrapper-deleted">
+               <h2 class="title-todolist">deleted</h2>
+               <div class="deleted" id="deletedId"></div>
+               <button class="btnClear" id="btnClearAll">clear all</button>
             </div>
          </div>
       </div>
-      <div class="todolist">
-         <div id="todo"></div>
-      </div>
-      <div class="wrapper">
-            <div class="modal-wrapper">
+      <div class="wrapper-modal">
+            <div class="container-modal">
                <div class="modal">
                   <button class="roundButton" id="closeButton">X</button>
                   <input id = 'input_modal_title' placeholder="Title" class="modal-input" type="text">
                   <input id = 'input_modal_description' placeholder="Description" class="modal-input" type="text">
-                  <button id="model-submit" class="model__submit">Submit</button>
+                  <button id="modal__submitId" class="modal__submit">Submit</button>
                </div>
             </div>
       </div>
