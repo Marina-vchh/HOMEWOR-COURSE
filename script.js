@@ -131,7 +131,8 @@ const init = () => {
       deleted: [],
    };
 
-   btnAdd.addEventListener('click', () => {
+   btnAdd.addEventListener('click', (e) => {
+      e.preventDefault()
       addCard(data)
       }); 
 

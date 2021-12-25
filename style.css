@@ -44,11 +44,13 @@ input {
 }
 
 .title{
+   font-family: Arial, Helvetica, sans-serif;
    font-size: 18px;
    color: #fff;
 }
 
 .description{
+   font-family: Arial, Helvetica, sans-serif;
    font-size: 18px;
    color: #fff;
 }
@@ -153,7 +155,6 @@ input {
 }
 
 .span {
-   text-transform: uppercase;
    color: #c5c5c5;
    font-size: 18px;
    font-weight: 700;
